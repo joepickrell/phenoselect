@@ -50,7 +50,7 @@ double PhenoBF::single_llk0_pheno(int which){
 	double l1 =  normal_ldens(f1, xa, xa*(1-xa)*c1);
 	double l2 = normal_ldens(f2, xa, xa*(1-xa)*c2);
 	double l3 = normal_ldens(f3, xa, xa*(1-xa)*c3);
-
+	toreturn += l1+l2+l3;
 	return toreturn;
 }
 
@@ -72,7 +72,7 @@ double PhenoBF::single_llk1(int whichsnp){
 	double l1 =  normal_ldens(f1, m1, xa*(1-xa)*c1);
 	double l2 = normal_ldens(f2, m2, xa*(1-xa)*c2);
 	double l3 = normal_ldens(f3, m3, xa*(1-xa)*c3);
-
+	toreturn += l1+l2+l3;
 	return toreturn;
 }
 
@@ -111,7 +111,7 @@ void PhenoBF::initialize(){
 	xa_update_sd = 0.01;
 	s_update_sd = 0.01;
 	branch_update_sd = 0.1;
-	whichpop = 1;
+	whichpop = 3;
 	nit = 0;
 
 	for (int i = 0; i <ncontrol; i++) {
@@ -126,7 +126,7 @@ void PhenoBF::initialize(){
 		double f1 = counts_pheno->get_freq(0, i);
 		double f2 = counts_pheno->get_freq(1, i);
 		double f3 = counts_pheno->get_freq(2, i);
-		double m = (f2+f3)/2.0;
+		double m = (f1+f2+f3)/3.0;
 		if (m < 1e-16) m = 1e-5;
 		xa_pheno.push_back( m );
 	}
