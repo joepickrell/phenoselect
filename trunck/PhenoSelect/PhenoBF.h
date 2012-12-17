@@ -36,11 +36,19 @@ public:
 	double xa_update_sd, branch_update_sd, s_update_sd;
 	int nit;
 	int whichpop;
+	bool accept(double, double, double, double);
 	void single_iteration();
 	void update_xa_control(int);
 	void update_xa_pheno(int);
 	void update_branches();
 	void update_s();
+	void run_MCMC(int);
+	vector<double> stored_c1;
+	vector<double> stored_c2;
+	vector<double> stored_c3;
+	vector<double> stored_s;
+	vector<double> stored_llk;
+
 };
 
 
