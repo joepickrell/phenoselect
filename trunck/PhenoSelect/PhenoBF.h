@@ -24,7 +24,7 @@ public:
 	int ncontrol;
 	int npheno;
 	double s;
-	int model;
+	bool models;
 	double single_llk0_control(int);
 	double single_llk0_pheno(int);
 	double single_llk1(int);
@@ -48,6 +48,8 @@ public:
 	vector<double> stored_c3;
 	vector<double> stored_s;
 	vector<double> stored_llk;
+
+	void print_stored(string);
 
 };
 

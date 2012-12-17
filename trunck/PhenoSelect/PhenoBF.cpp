@@ -113,7 +113,7 @@ void PhenoBF::initialize(){
 	branch_update_sd = 0.1;
 	whichpop = 3;
 	nit = 0;
-
+	models = true;
 	for (int i = 0; i <ncontrol; i++) {
 		double f1 = counts_control->get_freq(0, i);
 		double f2 = counts_control->get_freq(1, i);
@@ -144,7 +144,7 @@ void PhenoBF::single_iteration(){
 	for (int i = 0; i < ncontrol; i++)	update_xa_control(i);
 	for (int i = 0; i < npheno; i++)	update_xa_pheno(i);
 	update_branches();
-	update_s();
+	if (models) update_s();
 	nit++;
 }
 
@@ -248,15 +248,29 @@ void PhenoBF::update_s(){
 }
 
 void PhenoBF::run_MCMC(int totalit){
+	stored_c1.clear();
+	stored_c2.clear();
+	stored_c3.clear();
+	stored_s.clear();
+	stored_llk.clear();
 	for (int i = 0; i < totalit; i++){
 		single_iteration();
 		if (i % 1000 == 0){
-			cout << i << " "<< xa_pheno[0] << " "<< c1 << " "<< c2 << " "<< c3 << " "<< s << " "<< llk1() << "\n";
+			double lk1 = llk1();
+			cout << i << " "<< c1 << " "<< c2 << " "<< c3 << " "<< s << " "<< lk1 << "\n";
 			stored_c1.push_back(c1);
 			stored_c2.push_back(c2);
 			stored_c3.push_back(c3);
 			stored_s.push_back(s);
-			stored_llk.push_back( llk1() );
+			stored_llk.push_back( lk1 );
 		}
 	}
+}
+
+void PhenoBF::print_stored(string outfile){
+	ogzstream out(outfile.c_str());
+	for (int i = 0; i < stored_c1.size(); i++){
+		out << stored_c1[i] << " "<< stored_c2[i] << " "<< stored_c3[i] << " "<< stored_s[i] << " "<< stored_llk[i] << "\n";
+	}
+
 }
