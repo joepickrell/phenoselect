@@ -255,7 +255,7 @@ void PhenoBF::run_MCMC(int totalit){
 	stored_llk.clear();
 	for (int i = 0; i < totalit; i++){
 		single_iteration();
-		if (i % 1000 == 0){
+		if (i % 250 == 0){
 			double lk1 = llk1();
 			cout << i << " "<< c1 << " "<< c2 << " "<< c3 << " "<< s << " "<< lk1 << "\n";
 			stored_c1.push_back(c1);

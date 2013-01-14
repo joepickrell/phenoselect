@@ -19,6 +19,7 @@ void printopts(){
         cout << "-w [integer] which population under selection (1, 2, 3)\n";
         cout << "-null no selection\n";
         cout << "-nit [integer] number of MCMC iterations\n";
+        cout << "-sp [float] sd of normal prior on s\n";
         cout << "\n";
 }
 
@@ -27,6 +28,7 @@ string phenofile;
 string outfile;
 int whichpop = 1;
 int nit = 500000;
+double sp = 0.2;
 bool null = false;
 
 int main(int argc, char *argv[]){
@@ -55,7 +57,9 @@ int main(int argc, char *argv[]){
     if (cmdline.HasSwitch("-w")) whichpop = atoi(cmdline.GetArgument("-w", 0).c_str());
     if (cmdline.HasSwitch("-nit")) nit = atoi(cmdline.GetArgument("-nit", 0).c_str());
     if (cmdline.HasSwitch("-null")) null  = true;
+    if (cmdline.HasSwitch("-sp")) sp = atof(cmdline.GetArgument("-sp", 0).c_str());
     PhenoBF data(controlfile, phenofile);
+    data.s_prior = sp;
     data.whichpop = whichpop;
     if (null) data.models = false;
     data.run_MCMC(nit);
