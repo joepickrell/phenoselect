@@ -13,8 +13,9 @@ using namespace std;
 class PhenoBF{
 public:
 	PhenoBF();
-	PhenoBF(string, string);
+	PhenoBF(string, string, PhyloPop_params *);
 	gsl_rng* r;
+	PhyloPop_params * params;
 	CountData* counts_control;
 	CountData* counts_pheno;
 	void initialize();

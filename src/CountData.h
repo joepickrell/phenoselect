@@ -43,41 +43,13 @@ public:
 	void set_alfreqs();
 	void set_alfreqs_micro();
 	void scale_alfreqs();
-	void set_scatter();
-	void set_cov();
-	void set_cov_f2();
-	void set_cov_jackknife(int);
-	void set_cov_bootstrap(gsl_rng *);
-	void set_cov_fromsamp(int);
-	void set_cov_singlesnp(int);
-	void set_cov2();
-	void process_scatter();
-	void process_cov();
-	void read_scatter(string); //for debugging
+
 	void read_alfreqs(string); //for debugging, can input simulated allele frequencies
-	void print_scatter(string);
+
 	void print_alfreqs(string);
-	void print_fst(string);
-	void set_hzy_fromfile(string);
-	double get_cov(string, string);
-	double get_cov_var(string, string);
-	double get_scatter(string, string);
-	void print_cov(string);
-	void print_cov_var(string);
-	void print_cov_var2(string);
-	void print_cov_cov(string);
-	void print_cov_samp(string);
-	void set_ncomp_ef();
+
 	pair< vector<string>, vector<double> > get_freqs(int);
 	pair< vector<string>, vector<double> > get_centered_freqs(int);
-	set<pair<string, pair<double, double> > > calculate_f4(int, int, int, int);
-	set<pair<string, pair<double, double> > > calculate_f3(int, int, int);
-	pair<double, double> f4ratio(string, string, string, string, string);
-	map< string, map< string, map<string, double> > > calculate_f3s();
-	double calculate_f2(int, int);
-	pair<double, double> calculate_drift(int, int);
-	pair<double, double> calculate_mean(int);
-	double scatter_det, scatter_gamma;
 	PhyloPop_params* params;
 	gsl_matrix *U, *scatter_prime;
 	int ne, ne2, ncomp, nblock;

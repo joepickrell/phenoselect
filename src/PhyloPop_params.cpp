@@ -59,40 +59,7 @@ PhyloPop_params::PhyloPop_params(){
 	fitmig = true;
 	flip = false;
 	print_hzy = false;
-}
-
-void PhyloPop_params::read_migfracs(string infile){
-	migfracs.clear();
-	ifstream in(infile.c_str());
-    vector<string> line;
-    struct stat stFileInfo;
-    int intStat;
-    string st, buf;
-    intStat = stat(infile.c_str(), &stFileInfo);
-     if (intStat !=0){
-             std::cerr<< "ERROR: cannot open file " << infile << "\n";
-             exit(1);
-     }
-
-    while(getline(in, st)){
-            buf.clear();
-            stringstream ss(st);
-            line.clear();
-            while (ss>> buf){
-                    line.push_back(buf);
-            }
-            string sourcep = line[0];
-            string p = line[1];
-            float f = atof(line[2].c_str());
-            if (migfracs.find(p) == migfracs.end()){
-            	map<string, double> tmpmap;
-            	tmpmap.insert(make_pair(sourcep, f));
-            	migfracs.insert(make_pair(p, tmpmap));
-            }
-            else{
-            	migfracs[p].insert(make_pair(sourcep, f));
-            	//migfracs.insert(make_pair(p, f));
-            }
-            hold.insert(p);
-    }
+	pop1 = "POP1";
+	pop2 = "POP2";
+	pop3 = "POP3";
 }

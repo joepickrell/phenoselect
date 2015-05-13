@@ -13,6 +13,7 @@
 class PhyloPop_params{
 public:
 	PhyloPop_params();
+	string pop1, pop2, pop3;
 	bool bias_correct, global, readtree;
 	string treefile;
 	int window_size;
@@ -95,7 +96,6 @@ public:
 	map<string, map<string, double> > migfracs;
 	string f2_corpop;
 	double f2_mixdist;
-	void read_migfracs(string);
 
 	//same but for forcing migration during tree building
 	bool cor_mig;

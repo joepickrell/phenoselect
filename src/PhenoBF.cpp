@@ -9,11 +9,12 @@
 #include "PhenoBF.h"
 using namespace std;
 
-PhenoBF::PhenoBF(string infilecontrol, string infilepheno){
-	counts_control = new CountData(infilecontrol);
-	counts_pheno = new CountData(infilepheno);
+PhenoBF::PhenoBF(string infilecontrol, string infilepheno, PhyloPop_params* p){
+	counts_control = new CountData(infilecontrol, p);
+	counts_pheno = new CountData(infilepheno, p);
 	ncontrol = counts_control->nsnp;
 	npheno = counts_pheno->nsnp;
+	params = p;
 	initialize();
     const gsl_rng_type * T;
 
