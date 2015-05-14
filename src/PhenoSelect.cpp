@@ -50,9 +50,9 @@ int main(int argc, char *argv[]){
     		cerr<< "ERROR: need three arguments to -pops\n";
     		exit(1);
     	}
-    	p.pop1 = cmdline.GetArgument("-pops", 0);
-    	p.pop2 = cmdline.GetArgument("-pops", 1);
-    	p.pop3 = cmdline.GetArgument("-pops", 2);
+    	p.pops[0] = cmdline.GetArgument("-pops", 0);
+    	p.pops[1] = cmdline.GetArgument("-pops", 1);
+    	p.pops[2] = cmdline.GetArgument("-pops", 2);
     }
       else{
     	  cerr << "ERROR: need -pops\n";
