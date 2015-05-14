@@ -134,10 +134,11 @@ void PhenoBF::initialize(){
 }
 
 double PhenoBF::normal_ldens(double x, double mu, double sigma2){
-	double toreturn =0;
-	toreturn += -log(sqrt(sigma2));
+	double toreturn;
+	toreturn = -log(sqrt(sigma2));
 	toreturn += -log(sqrt( 2* M_PI));
 	toreturn += - ( (x-mu)*(x-mu) )/(2*sigma2);
+
 	return toreturn;
 }
 
@@ -150,14 +151,22 @@ void PhenoBF::single_iteration(){
 }
 
 void PhenoBF::update_xa_control(int whichsnp){
+	// new x_a = old_xa + N(0, sd)
+
 	double previous = xa_control[whichsnp];
 	double lk_previous = single_llk0_control(whichsnp);
 	double toadd = gsl_ran_gaussian(r, xa_update_sd);
 	double n = previous+toadd;
-	if (n > 1 || n < 0) {
+
+	// reflect on boundaries
+	if (n > 1) n =2-n;
+	if (n < 0) n = -n;
+	if (n > 1 || n < 0){
 		xa_control[whichsnp] = previous;
 		return;
 	}
+
+	// update
 	xa_control[whichsnp] = n;
 	double lk_new = single_llk0_control(whichsnp);
 	bool a = accept(lk_new, log(gsl_ran_beta_pdf(n, beta_prior, beta_prior)), lk_previous,  log(gsl_ran_beta_pdf(previous, beta_prior, beta_prior)));
