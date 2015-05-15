@@ -42,6 +42,7 @@ int main(int argc, char *argv[]){
     }
     if (cmdline.HasSwitch("-i")) phenofile = cmdline.GetArgument("-i", 0).c_str();
     else{
+    	cerr << "ERROR: need input file (-i)\n";
         printopts();
         exit(1);
     }
@@ -61,12 +62,14 @@ int main(int argc, char *argv[]){
       }
     if (cmdline.HasSwitch("-c")) controlfile = cmdline.GetArgument("-c", 0).c_str();
      else{
+    	 cerr << "ERROR: need control SNPs (-c)\n";
          printopts();
          exit(1);
      }
 
     if (cmdline.HasSwitch("-o")) outfile = cmdline.GetArgument("-o", 0).c_str();
       else{
+    	  cerr << "ERROR: need output stem (-o)\n";
           printopts();
           exit(1);
       }
