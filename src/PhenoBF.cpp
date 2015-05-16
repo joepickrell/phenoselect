@@ -316,8 +316,19 @@ void PhenoBF::print_stored(string outfile){
 	double s_05 = sorted_s[sorted_s.size()*0.05];
 	double s_5 = sorted_s[sorted_s.size()*0.5];
 	double s_95 = sorted_s[sorted_s.size()*0.95];
+
+	double sum = accumulate(sorted_s.begin(), sorted_s.end(), 0.0);
+	double mean = sum / sorted_s.size();
+
+	vector<double> diff(sorted_s.size());
+	transform(sorted_s.begin(), sorted_s.end(), diff.begin(),
+	               bind2nd(minus<double>(), mean));
+
+	double sq_sum = inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
+	double stdev = sqrt(sq_sum / (sorted_s.size()-1));
 	out << "# c1 "<< c1_05 << " "<< c1_5 << " "<< c1_95 << "\n";
 	out << "# c2 "<< c2_05 << " "<< c2_5 << " "<< c2_95 << "\n";
 	out << "# c3 "<< c3_05 << " "<< c3_5 << " "<< c3_95 << "\n";
 	out << "# s "<< s_05 << " "<< s_5 << " "<< s_95 << "\n";
+	out << "# s-stats (mean/sd/Z): "<< mean << " "<< stdev << " "<< mean/stdev << "\n";
 }

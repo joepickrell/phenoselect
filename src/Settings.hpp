@@ -24,6 +24,7 @@
 #include <stack>
 #include <valarray>
 #include <utility>
+#include <numeric>
 #include "gzstream.h"
 #include <sys/stat.h>
 #include <boost/tokenizer.hpp>
