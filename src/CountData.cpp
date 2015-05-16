@@ -19,8 +19,12 @@ CountData::CountData(string infile, PhyloPop_params* p){
 double CountData::get_freq(int whichpop, int whichsnp){
 	double toreturn;
 	pair<int, int> cc = get_counts(whichpop, whichsnp);
+
 	toreturn = (double) cc.first/  (  (double) cc.second + (double) cc.first );
- 	//toreturn = gsl_matrix_get(alfreqs, whichsnp, whichpop);
+ 	//if (toreturn > 1-1e-16){
+ 	//	cout << cc.first << " "<< cc.second << "\n";
+ 	//}
+	//toreturn = gsl_matrix_get(alfreqs, whichsnp, whichpop);
 	return toreturn;
 }
 

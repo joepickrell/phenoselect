@@ -27,7 +27,7 @@ PhenoBF::PhenoBF(string infilecontrol, string infilepheno, PhyloPop_params* p){
 }
 
 double PhenoBF::single_llk0_control(int which){
-	double toreturn = 0;
+	double toreturn;
 	double xa = xa_control[which];
 	double f1 = counts_control->get_freq(0, which);
 	double f2 = counts_control->get_freq(1, which);
@@ -36,13 +36,15 @@ double PhenoBF::single_llk0_control(int which){
 	double l1 = normal_ldens(f1, xa, xa*(1-xa)*c1);
 	double l2 =  normal_ldens(f2, xa, xa*(1-xa)*c2);
 	double l3 =  normal_ldens(f3, xa, xa*(1-xa)*c3);
-	toreturn += l1+l2+l3;
-	//cout << l1 << " "<< l2 << " "<< l3 << "\n";
+	toreturn = l1+l2+l3;
+	if (isnan(toreturn)){
+		cout << which << " "<< f1<< " "<< f2 << " "<< f3 << " "<< xa << " "<< l1 << " "<< l2 << " "<< l3 << "\n";
+	}
 	return toreturn;
 }
 
 double PhenoBF::single_llk0_pheno(int which){
-	double toreturn = 0;
+	double toreturn;
 	double xa = xa_pheno[which];
 	double f1 = counts_pheno->get_freq(0, which);
 	double f2 = counts_pheno->get_freq(1, which);
@@ -51,7 +53,7 @@ double PhenoBF::single_llk0_pheno(int which){
 	double l1 =  normal_ldens(f1, xa, xa*(1-xa)*c1);
 	double l2 = normal_ldens(f2, xa, xa*(1-xa)*c2);
 	double l3 = normal_ldens(f3, xa, xa*(1-xa)*c3);
-	toreturn += l1+l2+l3;
+	toreturn = l1+l2+l3;
 	return toreturn;
 }
 
@@ -121,6 +123,7 @@ void PhenoBF::initialize(){
 		double f3 = counts_control->get_freq(2, i);
 		double m = (f1+f2+f3)/3.0;
 		if (m < 1e-16) m = 1e-5;
+		if (m > 1-1e-16)m = 1-1e-5;
 		xa_control.push_back(m);
 	}
 	for (int i = 0; i < npheno; i++) {
@@ -129,6 +132,7 @@ void PhenoBF::initialize(){
 		double f3 = counts_pheno->get_freq(2, i);
 		double m = (f1+f2+f3)/3.0;
 		if (m < 1e-16) m = 1e-5;
+		if (m > 1-1e-16)m = 1-1e-5;
 		xa_pheno.push_back( m );
 	}
 }
