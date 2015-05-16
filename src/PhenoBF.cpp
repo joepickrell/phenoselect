@@ -265,7 +265,7 @@ void PhenoBF::run_MCMC(int totalit){
 	stored_llk.clear();
 	for (int i = 0; i < totalit; i++){
 		single_iteration();
-		if (i % 250 == 0){
+		if (i % params->sfreq == 0){
 			double lk1 = llk1();
 			cout << i << " "<< c1 << " "<< c2 << " "<< c3 << " "<< s << " "<< lk1 << "\n";
 			stored_c1.push_back(c1);
@@ -279,8 +279,41 @@ void PhenoBF::run_MCMC(int totalit){
 
 void PhenoBF::print_stored(string outfile){
 	ogzstream out(outfile.c_str());
+	vector<double> sorted_c1, sorted_c2, sorted_c3, sorted_s;
 	for (int i = 0; i < stored_c1.size(); i++){
-		out << stored_c1[i] << " "<< stored_c2[i] << " "<< stored_c3[i] << " "<< stored_s[i] << " "<< stored_llk[i] << "\n";
+		if (i * params->sfreq < params->nburn){
+			out << "# "<< i* params->sfreq;
+		}
+		else{
+			out << i*params->sfreq;
+			sorted_c1.push_back(stored_c1[i]);
+			sorted_c2.push_back(stored_c2[i]);
+			sorted_c3.push_back(stored_c3[i]);
+			sorted_s.push_back(stored_s[i]);
+		}
+		out << " "<< stored_c1[i] << " "<< stored_c2[i] << " "<< stored_c3[i] << " "<< stored_s[i] << " "<< stored_llk[i] << "\n";
 	}
+	sort(sorted_c1.begin(), sorted_c1.end());
+	sort(sorted_c2.begin(), sorted_c2.end());
+	sort(sorted_c3.begin(), sorted_c3.end());
+	sort(sorted_s.begin(), sorted_s.end());
+	double c1_05 = sorted_c1[sorted_c1.size()*0.05];
+	double c1_5 = sorted_c1[sorted_c1.size()*0.5];
+	double c1_95 = sorted_c1[sorted_c1.size()*0.95];
 
+	double c2_05 = sorted_c2[sorted_c2.size()*0.05];
+	double c2_5 = sorted_c2[sorted_c2.size()*0.5];
+	double c2_95 = sorted_c2[sorted_c2.size()*0.95];
+
+	double c3_05 = sorted_c3[sorted_c3.size()*0.05];
+	double c3_5 = sorted_c3[sorted_c3.size()*0.5];
+	double c3_95 = sorted_c3[sorted_c3.size()*0.95];
+
+	double s_05 = sorted_s[sorted_s.size()*0.05];
+	double s_5 = sorted_s[sorted_s.size()*0.5];
+	double s_95 = sorted_s[sorted_s.size()*0.95];
+	out << "# c1 "<< c1_05 << " "<< c1_5 << " "<< c1_95 << "\n";
+	out << "# c2 "<< c2_05 << " "<< c2_5 << " "<< c2_95 << "\n";
+	out << "# c3 "<< c3_05 << " "<< c3_5 << " "<< c3_95 << "\n";
+	out << "# s "<< s_05 << " "<< s_5 << " "<< s_95 << "\n";
 }

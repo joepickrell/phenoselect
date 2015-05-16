@@ -14,6 +14,8 @@ class PhyloPop_params{
 public:
 	PhyloPop_params();
 	vector<string> pops;
+	int nburn;
+	int sfreq;
 
 };
 

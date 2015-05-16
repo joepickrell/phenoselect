@@ -13,4 +13,6 @@ PhyloPop_params::PhyloPop_params(){
 	pops.push_back( "POP1");
 	pops.push_back("POP2" );
 	pops.push_back( "POP3");
+	nburn = 5000;
+	sfreq = 100;
 }
