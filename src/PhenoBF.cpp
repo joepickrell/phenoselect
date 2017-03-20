@@ -301,21 +301,21 @@ void PhenoBF::print_stored(string outfile){
 	sort(sorted_c2.begin(), sorted_c2.end());
 	sort(sorted_c3.begin(), sorted_c3.end());
 	sort(sorted_s.begin(), sorted_s.end());
-	double c1_05 = sorted_c1[sorted_c1.size()*0.05];
+	double c1_05 = sorted_c1[sorted_c1.size()*0.025];
 	double c1_5 = sorted_c1[sorted_c1.size()*0.5];
-	double c1_95 = sorted_c1[sorted_c1.size()*0.95];
+	double c1_95 = sorted_c1[sorted_c1.size()*0.975];
 
-	double c2_05 = sorted_c2[sorted_c2.size()*0.05];
+	double c2_05 = sorted_c2[sorted_c2.size()*0.025];
 	double c2_5 = sorted_c2[sorted_c2.size()*0.5];
-	double c2_95 = sorted_c2[sorted_c2.size()*0.95];
+	double c2_95 = sorted_c2[sorted_c2.size()*0.975];
 
-	double c3_05 = sorted_c3[sorted_c3.size()*0.05];
+	double c3_05 = sorted_c3[sorted_c3.size()*0.025];
 	double c3_5 = sorted_c3[sorted_c3.size()*0.5];
-	double c3_95 = sorted_c3[sorted_c3.size()*0.95];
+	double c3_95 = sorted_c3[sorted_c3.size()*0.975];
 
-	double s_05 = sorted_s[sorted_s.size()*0.05];
+	double s_05 = sorted_s[sorted_s.size()*0.025];
 	double s_5 = sorted_s[sorted_s.size()*0.5];
-	double s_95 = sorted_s[sorted_s.size()*0.95];
+	double s_95 = sorted_s[sorted_s.size()*0.975];
 
 	double sum = accumulate(sorted_s.begin(), sorted_s.end(), 0.0);
 	double mean = sum / sorted_s.size();
